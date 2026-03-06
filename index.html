@@ -1741,6 +1741,23 @@ function gateSubmit() {
     return;
   }
   // TODO: wire to Klaviyo / Mailchimp endpoint
+  fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'pk_eb94346b776c2218ae3f1c2258cf61b106',
+    'revision': '2023-12-15'
+  },
+  body: JSON.stringify({
+    data: {
+      type: 'profile-subscription-bulk-create-job',
+      attributes: {
+        list_id: 'UpcUmg',
+        subscriptions: [{ email: email }]
+      }
+    }
+  })
+});
   document.getElementById('email-gate').style.display='none';
   document.getElementById('nsmini').classList.add('show');
 }
