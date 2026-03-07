@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- FAVICON -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23080808'/><text x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-size='20' font-family='Georgia,serif' fill='%23d4a84b'>$</text><rect x='0' y='28' width='32' height='2' fill='%23d4a84b'/></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23080808'/><text x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-size='20' font-family='Georgia,serif' fill='%23d4a84b'>$</text></svg>">
+
 <!-- PRIMARY SEO -->
-<title>IEEPA Tariff Refund Calculator & Guide (2026) — ClaimTariffRefund.com</title>
+<title>IEEPA Tariff Refund Calculator & Guide (2026) — Claim Tariff Refund</title>
 <meta name="description" content="Supreme Court struck down IEEPA tariffs Feb 20, 2026. Calculate your refund, check eligibility, and get step-by-step instructions. Free tool for US importers.">
 <meta name="keywords" content="IEEPA tariff refund, customs duty refund 2026, tariff refund eligibility, IEEPA refund calculator, importer refund claim, CBP refund, Learning Resources v Trump">
 <link rel="canonical" href="https://claimtariffrefund.com/">
@@ -15,7 +19,7 @@
 <meta property="og:description" content="Supreme Court killed IEEPA tariffs. Calculate your refund in 30 seconds. Free guide for US importers.">
 <meta property="og:url" content="https://claimtariffrefund.com/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="ClaimTariffRefund.com">
+<meta property="og:site_name" content="Claim Tariff Refund">
 <meta property="og:image" content="https://claimtariffrefund.com/og-image.png">
 
 <!-- TWITTER CARD -->
@@ -1164,7 +1168,6 @@ section:first-child { border-top: none; }
 </style>
 </head>
 
-
 <body>
 
 <!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
@@ -1743,23 +1746,6 @@ function gateSubmit() {
     return;
   }
   // TODO: wire to Klaviyo / Mailchimp endpoint
-  fetch('https://a.klaviyo.com/api/profile-subscription-bulk-create-jobs/', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'pk_eb94346b776c2218ae3f1c2258cf61b106',
-    'revision': '2023-12-15'
-  },
-  body: JSON.stringify({
-    data: {
-      type: 'profile-subscription-bulk-create-job',
-      attributes: {
-        list_id: 'UpcUmg',
-        subscriptions: [{ email: email }]
-      }
-    }
-  })
-});
   document.getElementById('email-gate').style.display='none';
   document.getElementById('nsmini').classList.add('show');
 }
