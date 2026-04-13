@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEEPA Tariff Refund Calculator (2026) — Free Estimate Tool for US Importers</title>
+<meta name="description" content="Free IEEPA tariff refund calculator. Estimate your refund for Chinese, Canadian, Mexican, and other imports in 30 seconds. Based on Supreme Court ruling.">
+<meta name="keywords" content="IEEPA tariff refund calculator, tariff refund estimate, import duty refund calculator, IEEPA refund how much, customs refund calculator 2026">
+<link rel="canonical" href="https://claimtariffrefund.com/tariff-refund-calculator/">
+
+<meta property="og:title" content="IEEPA Tariff Refund Calculator — How Much Are You Owed?">
+<meta property="og:description" content="Free calculator to estimate your IEEPA tariff refund. Select country, enter import value, get instant estimate.">
+<meta property="og:url" content="https://claimtariffrefund.com/tariff-refund-calculator/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Claim Tariff Refund">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "IEEPA Tariff Refund Calculator",
+  "url": "https://claimtariffrefund.com/tariff-refund-calculator/",
+  "description": "Free online calculator to estimate IEEPA tariff refunds for US importers following the February 2026 Supreme Court ruling.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How accurate is this IEEPA tariff refund calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This calculator provides estimates based on published IEEPA tariff rates by country of origin. Actual refund amounts vary by HS code, specific duty rates, entry liquidation status, and CBP processing. For China imports, the blended average rate of ~14.5% is used. Consult your customs broker for exact figures."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tariff rates does the calculator use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "China: ~14.5% blended average (rates ranged from 10-25% across fentanyl and reciprocal tariffs). Canada: 25% (flat IEEPA rate). Mexico: 25% (flat IEEPA rate). Other countries: 10% (reciprocal tariff rate)."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a2744'/><text x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-size='20' font-family='Georgia,serif' fill='%23d4880f'>$</text></svg>">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* Calculator-specific styles */
+.calc-card {
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.calc-header {
+  background: var(--navy);
+  padding: 20px 28px;
+  color: #fff;
+}
+.calc-header h2 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+.calc-header p { font-size: 14px; color: rgba(255,255,255,0.65); }
+.calc-body { padding: 28px; }
+.field { margin-bottom: 20px; }
+.field-label {
+  display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+}
+.field-label .req { color: var(--red); }
+.country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.c-btn {
+  background: var(--bg-subtle); border: 2px solid var(--border); color: var(--text-secondary);
+  padding: 12px 14px; font-family: inherit; font-size: 15px; font-weight: 600;
+  cursor: pointer; border-radius: var(--radius-sm); transition: all 0.15s; text-align: left; line-height: 1.2;
+}
+.c-btn:hover { border-color: var(--navy); color: var(--navy); }
+.c-btn.active { border-color: var(--amber); background: var(--amber-dim); color: var(--amber); }
+.c-btn .c-rate { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-top: 2px; }
+.c-btn.active .c-rate { color: rgba(212,136,15,0.7); }
+.date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.f-select {
+  width: 100%; background: var(--bg-subtle); border: 2px solid var(--border); color: var(--text);
+  padding: 10px 12px; font-family: inherit; font-size: 14px; border-radius: var(--radius-sm);
+  appearance: none; cursor: pointer; outline: none; transition: border-color 0.15s;
+}
+.f-select:focus { border-color: var(--amber); }
+.amount-wrap { position: relative; }
+.amount-pre {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 16px; font-weight: 600; color: var(--text-muted); pointer-events: none;
+}
+.f-amount {
+  width: 100%; background: var(--bg-subtle); border: 2px solid var(--border); color: var(--text);
+  padding: 12px 12px 12px 28px; font-family: inherit; font-size: 24px; font-weight: 700;
+  border-radius: var(--radius-sm); outline: none; transition: border-color 0.15s;
+}
+.f-amount:focus { border-color: var(--amber); }
+.f-amount::placeholder { color: #d0d0d0; }
+.quick-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.q-btn {
+  background: var(--bg); border: 1px solid var(--border); color: var(--text-muted);
+  padding: 5px 12px; font-family: inherit; font-size: 13px; font-weight: 600;
+  cursor: pointer; border-radius: 4px; transition: all 0.15s;
+}
+.q-btn:hover { border-color: var(--amber); color: var(--amber); }
+.f-err { font-size: 13px; font-weight: 500; color: var(--red); margin-top: 6px; display: none; }
+.f-err.show { display: block; }
+.calc-submit {
+  width: 100%; background: var(--amber); color: #fff; border: none; padding: 16px;
+  font-family: inherit; font-size: 17px; font-weight: 700; border-radius: var(--radius-sm);
+  cursor: pointer; transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(212,136,15,0.25);
+}
+.calc-submit:hover { background: var(--amber-light); box-shadow: 0 4px 16px rgba(212,136,15,0.35); }
+.result-wrap { display: none; border-top: 1px solid var(--border); }
+.result-wrap.show { display: block; }
+.result-top { padding: 28px; background: var(--bg-subtle); }
+.result-lbl { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.result-num { font-size: 44px; font-weight: 800; color: var(--green); line-height: 1; margin-bottom: 4px; }
+.result-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+.breakdown { border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 16px; }
+.b-row { display: flex; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--border-light); font-size: 14px; }
+.b-row:last-child { border-bottom: none; }
+.b-row .bl { color: var(--text-muted); }
+.b-row .bv { font-weight: 600; }
+.b-row.hl { background: var(--amber-dim); }
+.b-row.hl .bv { color: var(--amber); font-weight: 700; }
+.result-warn {
+  background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-sm);
+  padding: 12px 14px; font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+}
+.result-warn strong { display: block; color: #b45309; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+.email-gate { padding: 24px 28px; background: var(--bg); }
+.gate-title { font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.5; }
+.gate-input {
+  width: 100%; background: var(--bg-subtle); border: 2px solid var(--border); color: var(--text);
+  padding: 12px 14px; font-family: inherit; font-size: 15px; border-radius: var(--radius-sm);
+  outline: none; margin-bottom: 8px; transition: border-color 0.15s;
+}
+.gate-input:focus { border-color: var(--amber); }
+.gate-input::placeholder { color: #bbb; }
+.gate-submit {
+  width: 100%; background: var(--amber); color: #fff; border: none; padding: 14px;
+  font-family: inherit; font-size: 15px; font-weight: 700; border-radius: var(--radius-sm);
+  cursor: pointer; transition: background 0.2s;
+}
+.gate-submit:hover { background: var(--amber-light); }
+.gate-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px; }
+.next-steps-mini { display: none; padding: 0 28px 24px; }
+.next-steps-mini.show { display: block; }
+.ns-item {
+  background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 12px 14px; font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.5;
+}
+.ns-item span {
+  display: block; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--amber); margin-bottom: 2px;
+}
+@media (max-width: 640px) {
+  .calc-body { padding: 20px; }
+  .email-gate { padding: 20px; }
+}
+</style>
+<script async src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=Wki4wb"></script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <a href="/" class="logo">ClaimTariffRefund<span>.com</span></a>
+    <nav class="header-nav">
+      <a href="/#how-to-claim">How to Claim</a>
+      <a href="/#key-dates">Key Dates</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+    <div class="header-badge">Updated Apr 13</div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" type="button">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="/#how-to-claim">How to Claim</a>
+  <a href="/#key-dates">Key Dates</a>
+  <a href="/#faq">FAQ</a>
+</nav>
+
+<!-- HERO -->
+<section class="sub-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Home</a> &rsaquo; Refund Calculator</div>
+    <h1><em>IEEPA Tariff Refund</em> Calculator</h1>
+    <p>Estimate your refund in 30 seconds. Select your country of origin, enter your import value, and get an instant estimate based on published IEEPA tariff rates.</p>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="content-section" style="padding-top: 40px;">
+  <div class="container">
+    <div class="calc-card">
+      <div class="calc-header">
+        <h2>Refund Calculator</h2>
+        <p>Estimate your IEEPA tariff refund</p>
+      </div>
+      <div class="calc-body">
+        <div class="field">
+          <label class="field-label">Country of Origin <span class="req">*</span></label>
+          <div class="country-grid">
+            <button class="c-btn" data-country="China" data-rate="0.145" onclick="selectC(this)" type="button">China<span class="c-rate">~14.5% blended avg</span></button>
+            <button class="c-btn" data-country="Canada" data-rate="0.25" onclick="selectC(this)" type="button">Canada<span class="c-rate">25% IEEPA rate</span></button>
+            <button class="c-btn" data-country="Mexico" data-rate="0.25" onclick="selectC(this)" type="button">Mexico<span class="c-rate">25% IEEPA rate</span></button>
+            <button class="c-btn" data-country="Other" data-rate="0.10" onclick="selectC(this)" type="button">Other<span class="c-rate">10% reciprocal rate</span></button>
+          </div>
+          <div class="f-err" id="err-c">Please select a country</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Import Period <span class="req">*</span></label>
+          <div class="date-row">
+            <select class="f-select" id="d-start">
+              <option value="">Start month</option>
+              <option value="2025-02">Feb 2025</option><option value="2025-03">Mar 2025</option>
+              <option value="2025-04">Apr 2025</option><option value="2025-05">May 2025</option>
+              <option value="2025-06">Jun 2025</option><option value="2025-07">Jul 2025</option>
+              <option value="2025-08">Aug 2025</option><option value="2025-09">Sep 2025</option>
+              <option value="2025-10">Oct 2025</option><option value="2025-11">Nov 2025</option>
+              <option value="2025-12">Dec 2025</option><option value="2026-01">Jan 2026</option>
+              <option value="2026-02">Feb 2026</option>
+            </select>
+            <select class="f-select" id="d-end">
+              <option value="">End month</option>
+              <option value="2025-02">Feb 2025</option><option value="2025-03">Mar 2025</option>
+              <option value="2025-04">Apr 2025</option><option value="2025-05">May 2025</option>
+              <option value="2025-06">Jun 2025</option><option value="2025-07">Jul 2025</option>
+              <option value="2025-08">Aug 2025</option><option value="2025-09">Sep 2025</option>
+              <option value="2025-10">Oct 2025</option><option value="2025-11">Nov 2025</option>
+              <option value="2025-12">Dec 2025</option><option value="2026-01">Jan 2026</option>
+              <option value="2026-02">Feb 2026</option>
+            </select>
+          </div>
+          <div class="f-err" id="err-d">Select start and end month</div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-amount">Total Import Value (USD) <span class="req">*</span></label>
+          <div class="amount-wrap">
+            <span class="amount-pre">$</span>
+            <input class="f-amount" type="text" id="f-amount" placeholder="0" oninput="fmtAmt(this)">
+          </div>
+          <div class="quick-row">
+            <button class="q-btn" onclick="setAmt(50000)" type="button">$50K</button>
+            <button class="q-btn" onclick="setAmt(100000)" type="button">$100K</button>
+            <button class="q-btn" onclick="setAmt(250000)" type="button">$250K</button>
+            <button class="q-btn" onclick="setAmt(500000)" type="button">$500K</button>
+            <button class="q-btn" onclick="setAmt(1000000)" type="button">$1M</button>
+          </div>
+          <div class="f-err" id="err-a">Enter your total import value</div>
+        </div>
+        <button class="calc-submit" onclick="doCalc()" type="button">Calculate My Refund</button>
+      </div>
+
+      <div class="result-wrap" id="result-wrap">
+        <div class="result-top">
+          <div class="result-lbl">Estimated Refund Amount</div>
+          <div class="result-num" id="result-num">$0</div>
+          <div class="result-sub" id="result-sub">--</div>
+          <div class="breakdown" id="breakdown">
+            <div class="b-row"><span class="bl">Country</span><span class="bv" id="b-country">--</span></div>
+            <div class="b-row"><span class="bl">Period</span><span class="bv" id="b-period">--</span></div>
+            <div class="b-row"><span class="bl">Import Value</span><span class="bv" id="b-val">--</span></div>
+            <div class="b-row"><span class="bl">IEEPA Rate</span><span class="bv" id="b-rate">--</span></div>
+            <div class="b-row hl"><span class="bl">Est. Refund</span><span class="bv" id="b-ref">--</span></div>
+          </div>
+          <div class="result-warn">
+            <strong>Estimate only</strong>
+            Actual refund varies by HS code, liquidation status, and CBP processing. Consult a licensed customs attorney.
+          </div>
+        </div>
+        <div class="email-gate" id="email-gate">
+          <p class="gate-title">Get your personalized step-by-step filing checklist emailed to you:</p>
+          <input class="gate-input" type="email" id="gate-email" placeholder="your@company.com">
+          <button class="gate-submit" onclick="gateSubmit()" type="button">Send Me the Filing Guide</button>
+          <p class="gate-note">No spam. IEEPA updates only. Unsubscribe anytime.</p>
+        </div>
+        <div class="next-steps-mini" id="nsmini">
+          <div class="ns-item"><span>Step 1 - Immediate</span>Register for ACE account at cbp.gov (delays are severe)</div>
+          <div class="ns-item"><span>Step 2 - This Week</span>Run ES-003 report in ACE, identify all IEEPA-tariffed entries</div>
+          <div class="ns-item"><span>Step 3 - Recommended</span>Consult customs attorney about protective CIT filing</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RATES EXPLANATION -->
+<section class="content-section alt">
+  <div class="container">
+    <h2 class="section-title">How We Calculate Your Refund</h2>
+    <p class="section-sub">Understanding the IEEPA tariff rates by country.</p>
+
+    <table class="rate-table">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>IEEPA Rate</th>
+          <th>Basis</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="val">China</td>
+          <td class="val">~14.5% (blended)</td>
+          <td>Fentanyl (10→20%) + Reciprocal (10%)</td>
+          <td>Rates varied over time; excludes Section 301</td>
+        </tr>
+        <tr>
+          <td class="val">Canada</td>
+          <td class="val">25%</td>
+          <td>EO 14193 (Fentanyl/immigration)</td>
+          <td>USMCA-qualifying goods exempt after Mar 7</td>
+        </tr>
+        <tr>
+          <td class="val">Mexico</td>
+          <td class="val">25%</td>
+          <td>EO 14193 (Fentanyl/immigration)</td>
+          <td>USMCA-qualifying goods exempt after Mar 7</td>
+        </tr>
+        <tr>
+          <td class="val">All Other</td>
+          <td class="val">10%</td>
+          <td>EO 14257 (Reciprocal tariff)</td>
+          <td>Effective Apr 2, 2025; some countries had higher rates</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <strong>Important limitations</strong>
+      <p>This calculator provides rough estimates only. Your actual refund depends on specific HS codes, the exact tariff classification of each entry, liquidation status, and whether Post-Summary Corrections or protests were filed. For accurate figures, run the ES-003 report in your ACE account.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PAGES -->
+<section class="related-pages">
+  <div class="container">
+    <h2 class="section-title">Country-Specific Guides</h2>
+    <p class="section-sub">Detailed information for your country of origin.</p>
+    <div class="related-grid">
+      <a href="/china-tariff-refund/" class="related-card">
+        <h3>China Tariff Refund</h3>
+        <p>10-25% IEEPA rates, Section 301 separation, and filing steps for Chinese imports.</p>
+      </a>
+      <a href="/canada-tariff-refund/" class="related-card">
+        <h3>Canada Tariff Refund</h3>
+        <p>25% IEEPA tariff details, USMCA exceptions, and eligibility guide.</p>
+      </a>
+      <a href="/cape-phase-1/" class="related-card">
+        <h3>CAPE Phase 1 Guide</h3>
+        <p>How to use CBP's new refund portal launching April 20, 2026.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="padding: 24px 0 0;">
+  <div class="disclaimer">
+    <strong>Legal Disclaimer</strong>
+    This website provides general informational content only and does not constitute legal advice. Information reflects data as of April 13, 2026. Consult a licensed customs attorney before taking legal action. Refund estimates are approximations only.
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="inner">
+    <div>&copy; 2026 ClaimTariffRefund.com &middot; Not legal advice</div>
+    <div style="display:flex; gap:20px;">
+      <a href="https://www.cbp.gov/trade/programs-administration/trade-remedies/IEEPA-FAQ" target="_blank" rel="noopener noreferrer">CBP Official FAQ</a>
+      <a href="https://www.cit.uscourts.gov" target="_blank" rel="noopener noreferrer">Court of Int'l Trade</a>
+      <a href="mailto:hello@claimtariffrefund.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Calculator logic (same as main page)
+var selCountry = null, selRate = 0;
+function selectC(btn) {
+  document.querySelectorAll('.c-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  selCountry = btn.dataset.country;
+  selRate = parseFloat(btn.dataset.rate);
+  document.getElementById('err-c').classList.remove('show');
+}
+function fmtAmt(el) {
+  var raw = el.value.replace(/[^0-9]/g,'');
+  el.value = raw ? parseInt(raw).toLocaleString('en-US') : '';
+  document.getElementById('err-a').classList.remove('show');
+}
+function setAmt(v) {
+  document.getElementById('f-amount').value = v.toLocaleString('en-US');
+  document.getElementById('err-a').classList.remove('show');
+}
+function getAmt() { return parseInt(document.getElementById('f-amount').value.replace(/[^0-9]/g,'')) || 0; }
+function monthLabel(v) {
+  if (!v) return '';
+  var p = v.split('-'), names = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return names[+p[1]] + ' ' + p[0];
+}
+function monthsBetween(s, e) {
+  if (!s || !e) return 0;
+  var sp = s.split('-').map(Number), ep = e.split('-').map(Number);
+  return Math.max(0, (ep[0]-sp[0])*12 + (ep[1]-sp[1]) + 1);
+}
+var lastCalcData = null;
+function doCalc() {
+  var ok = true;
+  if (!selCountry) { document.getElementById('err-c').classList.add('show'); ok=false; }
+  var ds = document.getElementById('d-start').value, de = document.getElementById('d-end').value;
+  if (!ds || !de || ds > de) { document.getElementById('err-d').classList.add('show'); ok=false; }
+  var amt = getAmt();
+  if (!amt) { document.getElementById('err-a').classList.add('show'); ok=false; }
+  if (!ok) return;
+  var months = monthsBetween(ds, de);
+  var rateLabel = selCountry === 'China' ? '~14.5% (blended avg)' : (selRate*100).toFixed(0)+'%';
+  var refund = Math.round(amt * selRate);
+  lastCalcData = { estimated_refund: refund, import_country: selCountry, import_period: monthLabel(ds)+' - '+monthLabel(de) };
+  var panel = document.getElementById('result-wrap');
+  panel.classList.add('show');
+  animNum(refund);
+  document.getElementById('result-sub').textContent = months + ' month' + (months!==1?'s':'') + ' of imports from ' + selCountry;
+  document.getElementById('b-country').textContent = selCountry;
+  document.getElementById('b-period').textContent = monthLabel(ds) + ' - ' + monthLabel(de);
+  document.getElementById('b-val').textContent = '$'+amt.toLocaleString('en-US');
+  document.getElementById('b-rate').textContent = rateLabel;
+  document.getElementById('b-ref').textContent = '$'+refund.toLocaleString('en-US');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function animNum(target) {
+  var el = document.getElementById('result-num'), dur = 900, t0 = performance.now();
+  var tick = function(now) {
+    var p = Math.min((now-t0)/dur,1), ease = 1-Math.pow(1-p,3);
+    el.textContent = '$'+Math.round(target*ease).toLocaleString('en-US');
+    if (p<1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+function gateSubmit() {
+  var email = document.getElementById('gate-email').value;
+  if (!email || !email.includes('@')) { document.getElementById('gate-email').style.borderColor='#dc2626'; return; }
+  var extraProps = {};
+  if (lastCalcData) { extraProps.estimated_refund = lastCalcData.estimated_refund; extraProps.import_country = lastCalcData.import_country; extraProps.import_period = lastCalcData.import_period; }
+  var _learnq = window._learnq || [];
+  var profile = { '$email': email, 'Source': 'calculator_page_gate' };
+  Object.assign(profile, extraProps);
+  _learnq.push(['identify', profile]);
+  _learnq.push(['track', 'Email Signup', { source: 'calculator_page_gate', ...extraProps }]);
+  document.getElementById('email-gate').style.display='none';
+  document.getElementById('nsmini').classList.add('show');
+}
+// Hamburger
+(function() {
+  var h = document.getElementById('hamburger'), m = document.getElementById('mobile-nav');
+  if (h && m) {
+    h.addEventListener('click', function() { h.classList.toggle('open'); m.classList.toggle('open'); });
+    m.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { h.classList.remove('open'); m.classList.remove('open'); }); });
+  }
+})();
+</script>
+</body>
+</html>
