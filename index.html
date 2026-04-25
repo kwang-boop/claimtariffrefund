@@ -88,6 +88,14 @@
         "@type": "Answer",
         "text": "ACE (Automated Commercial Environment) is CBP's online portal for import data. You need an ACE account to access your complete import history, calculate IEEPA tariffs paid, and register for ACH electronic refund payments. Apply at cbp.gov. CBP is experiencing delays, so apply immediately."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "I can't log into ACE or CAPE. What do I do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Login failures and submission errors have been widespread since CAPE went live on April 20, 2026. CBP is patching defects but the phone help line (866-530-4172) has been hitting multi-hour holds. Email is dramatically faster: contact ACE.Support@cbp.dhs.gov with a description of the error, screenshots, and your ACE account number. Typical response time is 1-2 business days."
+      }
     }
   ]
 }
@@ -138,7 +146,7 @@
   "@type": "NewsArticle",
   "headline": "IEEPA Tariff Refund Guide: Supreme Court Ruling, CIT Order, and What Importers Must Do Now",
   "datePublished": "2026-03-05",
-  "dateModified": "2026-04-18",
+  "dateModified": "2026-04-25",
   "author": {"@type": "Organization", "name": "ClaimTariffRefund.com"},
   "publisher": {"@type": "Organization", "name": "ClaimTariffRefund.com"},
   "description": "Following the Supreme Court's February 20, 2026 ruling and the CIT's March 4 order, US importers who paid IEEPA tariffs are entitled to refunds. Here's what to do."
@@ -311,6 +319,40 @@ body {
   font-weight: 600;
 }
 .urgency-banner strong { font-weight: 800; }
+
+/* ── PRO TIP BANNER ── */
+.pro-tip {
+  background: linear-gradient(90deg, #fef3c7 0%, #fffbeb 100%);
+  border-top: 1px solid #fde68a;
+  border-bottom: 1px solid #fde68a;
+  padding: 14px 24px;
+}
+.pro-tip-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #78350f;
+  line-height: 1.5;
+}
+.pro-tip-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #b45309;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  margin-top: 1px;
+}
+.pro-tip strong { font-weight: 700; color: #78350f; }
+.pro-tip a { color: #b45309; font-weight: 600; }
 
 /* ── HERO ── */
 .hero {
@@ -1290,7 +1332,17 @@ body {
 
 <!-- ══════════ URGENCY BANNER ══════════ -->
 <div class="urgency-banner">
-  <strong>CAPE Phase 1 opens April 20</strong> — refund portal launching in 7 days
+  <strong>CAPE Phase 1 is LIVE</strong> — $127B in refunds queued for 56,497+ registered importers
+</div>
+
+<!-- ══════════ PRO TIP: LOGIN ISSUES ══════════ -->
+<div class="pro-tip">
+  <div class="pro-tip-inner">
+    <div class="pro-tip-icon" aria-hidden="true">!</div>
+    <div>
+      <strong>Can't log into ACE or CAPE?</strong> You're not alone — login failures and submission errors are widespread in week one. <strong>Skip the phone queue.</strong> The CBP ACE help line (866-530-4172) has been hitting multi-hour holds with no connection. Email <a href="mailto:ACE.Support@cbp.dhs.gov">ACE.Support@cbp.dhs.gov</a> instead — response times are dramatically faster, and you get a written record of your issue.
+    </div>
+  </div>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
@@ -1580,29 +1632,29 @@ body {
     <div class="news-grid">
       <!-- UPDATE_ITEMS_START -->
       <div class="news-card">
+        <div class="news-date">Apr 24, 2026</div>
+        <h3>$127B Refunds Queued for 56,497 ACH-Registered Importers</h3>
+        <p>As of Apr 14, 56,497 importers had completed ACH registration and are eligible for $127B+ in refunds (incl. interest). Total IEEPA exposure: $166B across 330K+ importers and 53M shipments.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-date">Apr 22, 2026</div>
+        <h3>CAPE Portal Login Issues Widespread in Week 1</h3>
+        <p>Importers report ACE login failures and CAPE submission errors. CBP says it is monitoring and patching defects. Email support channels are responding faster than phone — see our login tip below.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-date">Apr 20, 2026</div>
+        <h3>CAPE Phase 1 Goes LIVE at 8am EST in ACE</h3>
+        <p>Refund portal opens. Importers (or brokers) submit a CSV "CAPE Declaration" listing entry numbers. Refunds expected 60-90 days from acceptance, via ACH.</p>
+      </div>
+      <div class="news-card">
         <div class="news-date">Apr 17, 2026</div>
-        <h3>CBP Confirms CAPE Portal Opens Monday; 82% of IEEPA Duties Eligible</h3>
-        <p>CBP's updated CSMS #68340863 confirms CAPE goes live April 20 at 8am EST. Phase 1 covers ~$127B in unliquidated and recently liquidated entries; refunds paid via ACH in 60–90 days.</p>
+        <h3>CBP Webinar Confirms CAPE Goes Live Monday — CSMS #68340863</h3>
+        <p>CBP webinar (Pub. 5525-0426) walked importers through the CAPE Declaration CSV format and confirmed the Apr 20 launch. Phase 1 covers ~63% of all IEEPA entries.</p>
       </div>
       <div class="news-card">
         <div class="news-date">Apr 15, 2026</div>
         <h3>Pre-Filing Checklist: Verify ACE Access and ACH Bank Info Before April 20</h3>
         <p>CBP guidance urges all Importers of Record to confirm ACE Secure Data Portal access and US bank ACH designations are on file before the CAPE portal opens Sunday night.</p>
-      </div>
-      <div class="news-card">
-        <div class="news-date">Apr 10, 2026</div>
-        <h3>CAPE Phase 1 Launches April 20: ~63% of Entries Eligible</h3>
-        <p>CBP opens Phase 1 of CAPE on April 20, covering unliquidated entries and entries within 80 days of liquidation. Valid refunds expected within 60-90 days via ACH.</p>
-      </div>
-      <div class="news-card">
-        <div class="news-date">Apr 1, 2026</div>
-        <h3>Government on Track for April 20 CAPE Launch</h3>
-        <p>Judge Eaton confirms satisfactory progress. CAPE system components are 60-85% complete. Formal CBP status report due April 14.</p>
-      </div>
-      <div class="news-card">
-        <div class="news-date">Apr 2026</div>
-        <h3>USTR Launches Section 301 Investigations Into 16 Economies</h3>
-        <p>New Section 301 probes signal potential replacement tariffs. Public comments due April 15, hearings begin April 28.</p>
       </div>
       <!-- UPDATE_ITEMS_END -->
     </div>
@@ -1662,9 +1714,9 @@ body {
         </tr>
         <tr>
           <td class="date-val">Apr 20, 2026</td>
-          <td>CAPE Phase 1 opens for refund submissions</td>
-          <td><span class="pill b">Upcoming</span></td>
-          <td>Prepare entries and ACH registration</td>
+          <td>CAPE Phase 1 opened for refund submissions</td>
+          <td><span class="pill g">Live Now</span></td>
+          <td>File your CAPE Declaration CSV in ACE</td>
         </tr>
         <tr>
           <td class="date-val">2 yrs from accrual</td>
@@ -1722,7 +1774,7 @@ body {
           <span class="faq-icon" aria-hidden="true">+</span>
         </div>
         <div class="faq-a" role="region">
-          CAPE Phase 1 (launching April 20) targets 60-90 days for valid refund declarations. However, this covers only ~63% of entries. Processing could take longer if DOJ obtains a stay of the CIT order.
+          CAPE Phase 1 (live since April 20) targets 60-90 days for valid refund declarations from acceptance. However, this covers only ~63% of entries. Processing could take longer if DOJ obtains a stay of the CIT order, and early system issues have caused some submission delays.
         </div>
       </div>
 
@@ -1755,6 +1807,16 @@ body {
           No firm deadline yet. The CIT statute of limitations is generally two years from accrual, but the exact date is legally uncertain. Filing sooner positions you for early processing. Consult a licensed customs attorney.
         </div>
       </div>
+
+      <div class="faq-item" role="listitem">
+        <div class="faq-q" onclick="toggleFaq(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(this)">
+          <span>I can't log into ACE or CAPE. What do I do?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </div>
+        <div class="faq-a" role="region">
+          Login failures and submission errors have been widespread since CAPE went live on April 20. CBP is patching defects but the phone help line (866-530-4172) has been hitting multi-hour holds with no connection. <strong>Email is dramatically faster:</strong> contact <a href="mailto:ACE.Support@cbp.dhs.gov" style="color: var(--amber); font-weight: 600;">ACE.Support@cbp.dhs.gov</a> with a clear description of the error, screenshots, and your ACE account number. You'll typically get a response within 1-2 business days, plus you have a written record if you need to escalate.
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1762,7 +1824,7 @@ body {
 <!-- ══════════ FINAL CTA ══════════ -->
 <section class="final-cta" aria-labelledby="cta-heading">
   <div class="container">
-    <h2 id="cta-heading">Don't miss the <span class="amber">April 20 deadline</span></h2>
+    <h2 id="cta-heading">CAPE is <span class="amber">LIVE</span> — file before the queue grows</h2>
     <p>Get notified when CAPE opens and every deadline that follows.</p>
     <div class="cta-form" role="form" aria-label="Email signup form">
       <input type="email" id="main-email" placeholder="your@company.com" aria-label="Email address">
@@ -1776,7 +1838,7 @@ body {
 <div style="padding: 24px 0 0;">
   <div class="disclaimer" role="note">
     <strong>Legal Disclaimer</strong>
-    This website provides general informational content only and does not constitute legal advice. Information reflects data as of April 18, 2026 and may not reflect subsequent developments. Consult a licensed customs attorney before taking legal action. Refund estimates are approximations only.
+    This website provides general informational content only and does not constitute legal advice. Information reflects data as of April 25, 2026 and may not reflect subsequent developments. Consult a licensed customs attorney before taking legal action. Refund estimates are approximations only.
   </div>
 </div>
 
@@ -1796,7 +1858,7 @@ body {
   <div class="exit-box">
     <button class="exit-close" onclick="closeExitPopup()" aria-label="Close popup">&times;</button>
     <h3>Before you go</h3>
-    <p>CAPE Phase 1 opens April 20. Get notified when refund submissions open and every deadline that follows.</p>
+    <p>CAPE Phase 1 is live and refund processing has begun. Get our weekly updates on filing tips, system issues, and CBP guidance.</p>
     <div class="exit-form" role="form" aria-label="Exit intent email signup">
       <input type="email" id="exit-email" placeholder="your@company.com" aria-label="Email address">
       <button onclick="exitEmailSubmit()" type="button">Get Refund Updates</button>
@@ -1993,7 +2055,7 @@ function toggleFaq(btn) {
 (function() {
   var badge = document.getElementById('header-badge');
   if (badge) {
-    badge.textContent = 'Updated Apr 18';
+    badge.textContent = 'Updated Apr 25';
   }
 })();
 
